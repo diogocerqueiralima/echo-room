@@ -1,5 +1,6 @@
 package com.github.diogocerqueiralima.authorizationserver.config;
 
+import com.github.diogocerqueiralima.authorizationserver.model.User;
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
@@ -8,6 +9,7 @@ import com.nimbusds.jose.proc.SecurityContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.config.Customizer;
@@ -69,6 +71,7 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests((authorize) ->
                         authorize
+                                .requestMatchers(HttpMethod.POST, "/api/v1/clients").hasRole(User.Role.ADMIN.name())
                                 .anyRequest().authenticated()
                 )
                 .formLogin(Customizer.withDefaults());
