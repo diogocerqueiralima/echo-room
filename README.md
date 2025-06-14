@@ -49,7 +49,7 @@ The application consists of multiple distributed services communicating using di
 ## 🛠️ Work in Progress
 
 - [x] Initial service structure
-- [ ] gRPC integration between `authorization-service` and `user-service`
+- [ ] gRPC integration between the services
 - [ ] WebSocket-based real-time chat module
 - [ ] Docker Compose setup for multi-service deployment
 - [ ] Service discovery with Eureka
