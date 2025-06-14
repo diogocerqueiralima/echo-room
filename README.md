@@ -20,7 +20,7 @@ The application consists of multiple distributed services communicating using di
 
 ## 📷 Architecture Diagram
 
-![imagem](https://github.com/user-attachments/assets/69847f49-928b-43b6-b93a-b1d831b113bb)
+![imagem](https://github.com/user-attachments/assets/76ebdd99-c95c-4969-b72c-c5410dffc8f8)
 
 ---
 
