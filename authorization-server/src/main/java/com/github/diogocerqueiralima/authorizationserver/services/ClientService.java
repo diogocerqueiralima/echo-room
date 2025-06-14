@@ -20,6 +20,16 @@ public class ClientService {
         this.passwordEncoder = passwordEncoder;
     }
 
+    /**
+     * Creates and persists a RegisteredClient.
+     *
+     * @param clientId the client ID
+     * @param clientSecret the client secret (will be encoded)
+     * @param redirectUris the redirect URIs that the client is allowed to use
+     * @param scopes the scopes the client can request from the authorization server
+     *
+     * @return the created RegisteredClient
+     */
     public RegisteredClient create(String clientId, String clientSecret, String[] redirectUris, String[] scopes) {
 
         RegisteredClient registeredClient = RegisteredClient.withId(UUID.randomUUID().toString())

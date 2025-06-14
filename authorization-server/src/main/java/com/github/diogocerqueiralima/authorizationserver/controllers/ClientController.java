@@ -20,8 +20,16 @@ public class ClientController {
         this.clientService = clientService;
     }
 
+    /**
+     *
+     * POST endpoint to create a new OAuth2 client
+     *
+     * @param dto the data used to create the client
+     *
+     * @return an HTTP response contained the created client public details
+     */
     @PostMapping
-    public ResponseEntity<ClientDto> createClient(@RequestBody @Valid CreateClientDto dto) {
+    public ResponseEntity<ClientDto> create(@RequestBody @Valid CreateClientDto dto) {
 
         RegisteredClient registeredClient = clientService.create(
                 dto.clientId(), dto.clientSecret(), dto.redirectUris(), dto.scopes()
