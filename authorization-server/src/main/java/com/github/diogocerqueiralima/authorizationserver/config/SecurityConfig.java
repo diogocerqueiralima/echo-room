@@ -66,17 +66,18 @@ public class SecurityConfig {
 
     @Bean
     @Order(2)
-    public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http)
-            throws Exception {
-        http
+    public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
+
+        return http
+                .csrf(csrf -> csrf
+                        .ignoringRequestMatchers("/api/**")
+                )
                 .authorizeHttpRequests((authorize) ->
                         authorize
                                 .requestMatchers(HttpMethod.POST, "/api/v1/clients").hasRole(User.Role.ADMIN.name())
+                                .requestMatchers(HttpMethod.POST, "/api/v1/users").permitAll()
                                 .anyRequest().authenticated()
-                )
-                .formLogin(Customizer.withDefaults());
-
-        return http.build();
+                ).build();
     }
 
     @Bean

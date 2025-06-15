@@ -19,10 +19,6 @@ public class User implements UserDetails {
         this.roles = roles;
     }
 
-    public User(String username, String password) {
-        this(username, password, Set.of(Role.MEMBER));
-    }
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return this.roles.stream()

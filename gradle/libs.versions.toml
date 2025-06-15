@@ -2,7 +2,7 @@
 spring-boot = "3.5.0"
 spring-dependency-management = "1.1.7"
 postgresql = "42.7.7"
-protobuf = "0.9.4"
+protobuf = "0.9.5"
 
 [libraries]
 spring-boot-starter = { module = "org.springframework.boot:spring-boot-starter" }
@@ -13,7 +13,6 @@ spring-boot-starter-oauth2-authorization-server = { module = "org.springframewor
 spring-boot-starter-test = { module = "org.springframework.boot:spring-boot-starter-test" }
 spring-boot-grpc-starter = { module = "org.springframework.grpc:spring-grpc-spring-boot-starter" }
 spring-boot-grpc-starter-test = { module = "org.springframework.grpc:spring-grpc-test" }
-grpc-services = { module = "io.grpc:grpc-services" }
 postgresql = { module = "org.postgresql:postgresql", version.ref = "postgresql" }
 
 [plugins]

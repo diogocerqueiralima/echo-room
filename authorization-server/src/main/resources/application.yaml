@@ -6,6 +6,11 @@ spring:
     url: jdbc:postgresql://${POSTGRESQL_HOST}:${POSTGRESQL_PORT}/${POSTGRESQL_DATABASE}
     username: ${POSTGRESQL_USERNAME}
     password: ${POSTGRESQL_PASSWORD}
+  grpc:
+    client:
+      channels:
+        users-service:
+          address: localhost:9000
   jpa:
     hibernate:
       ddl-auto: update

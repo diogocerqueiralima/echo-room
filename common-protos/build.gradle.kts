@@ -1,7 +1,10 @@
+import com.google.protobuf.gradle.id
+
 plugins {
     id("java")
     alias(libs.plugins.spring.boot)
     alias(libs.plugins.spring.dependency.management)
+    alias(libs.plugins.protobuf)
 }
 
 group = "com.github.diogocerqueiralima"
@@ -14,17 +17,7 @@ repositories {
 }
 
 dependencies {
-
-    implementation(project(":common-protos"))
-    implementation(libs.postgresql)
-    implementation(libs.spring.boot.starter)
-    implementation(libs.spring.boot.starter.web)
-    implementation(libs.spring.boot.starter.data.jpa)
-    implementation(libs.spring.boot.starter.validation)
-    implementation(libs.spring.boot.starter.oauth2.authorization.server)
     implementation(libs.spring.boot.grpc.starter)
-
-    testImplementation(libs.spring.boot.starter.test)
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
     testImplementation("org.junit.jupiter:junit-jupiter")
 }
@@ -32,6 +25,27 @@ dependencies {
 dependencyManagement {
     imports {
         mavenBom("org.springframework.grpc:spring-grpc-dependencies:${property("springGrpcVersion")}")
+    }
+}
+
+protobuf {
+    protoc {
+        artifact = "com.google.protobuf:protoc"
+    }
+    plugins {
+        id("grpc") {
+            artifact = "io.grpc:protoc-gen-grpc-java"
+        }
+    }
+    generateProtoTasks {
+        all().forEach {
+            it.plugins {
+                id("grpc") {
+                    option("jakarta_omit")
+                    option("@generated=omit")
+                }
+            }
+        }
     }
 }
 
