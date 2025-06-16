@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" th:href="@{/css/style.css}" href="../static/css/style.css"/>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <title>Echo Room - Register</title>
+</head>
+<body>
+
+    <main>
+
+        <div class="container">
+
+            <div class="header">
+                <h1>Create Account</h1>
+                <p>Please fill in this form to create an account.</p>
+            </div>
+
+            <form action="/register" method="post">
+
+                <div class="names">
+
+                    <div class="field">
+
+                        <label for="first_name">First Name</label>
+
+                        <div>
+                            <i class='bx bxs-user'></i>
+                            <input type="text" id="first_name" name="first_name" placeholder="Type your first name">
+                        </div>
+
+                    </div>
+
+                    <div class="field">
+
+                        <label for="last_name">Last Name</label>
+
+                        <div>
+                            <i class='bx bxs-user'></i>
+                            <input type="text" id="last_name" name="last_name" placeholder="Type your last name">
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="field">
+
+                    <label for="username">Username</label>
+
+                    <div>
+                        <i class='bx bxs-user'></i>
+                        <input type="text" id="username" name="username" placeholder="Type your username">
+                    </div>
+
+                </div>
+
+                <div class="field">
+
+                    <label for="email">E-mail</label>
+
+                    <div>
+                        <i class='bx bxs-envelope' ></i>
+                        <input type="email" id="email" name="email" placeholder="Type your e-mail">
+                    </div>
+
+                </div>
+
+                <div class="field">
+
+                    <label for="password">Password</label>
+
+                    <div>
+                        <i class='bx bxs-lock-alt'></i>
+                        <input type="password" id="password" name="password" placeholder="Type your password">
+                    </div>
+
+                </div>
+
+                <div class="field">
+
+                    <label for="confirm_password">Confirm Password</label>
+
+                    <div>
+                        <i class='bx bxs-lock-alt'></i>
+                        <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm your password">
+                    </div>
+
+                </div>
+
+                <div class="footer">
+
+                    <div class="agreement">
+                        <input type="checkbox" name="agreement" id="agreement">
+                        <label for="agreement">Aceito os Termos e Condições</label>
+                    </div>
+
+                    <button>Create Account</button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </main>
+
+</body>
+</html>

@@ -18,6 +18,7 @@ dependencies {
     implementation(project(":common-protos"))
     implementation(libs.postgresql)
     implementation(libs.spring.boot.starter)
+    implementation(libs.spring.boot.starter.thymeleaf)
     implementation(libs.spring.boot.starter.web)
     implementation(libs.spring.boot.starter.data.jpa)
     implementation(libs.spring.boot.starter.validation)

@@ -69,13 +69,10 @@ public class SecurityConfig {
     public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
 
         return http
-                .csrf(csrf -> csrf
-                        .ignoringRequestMatchers("/api/**")
-                )
                 .authorizeHttpRequests((authorize) ->
                         authorize
                                 .requestMatchers(HttpMethod.POST, "/api/v1/clients").hasRole(User.Role.ADMIN.name())
-                                .requestMatchers(HttpMethod.POST, "/api/v1/users").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/auth/**", "/css/**").permitAll()
                                 .anyRequest().authenticated()
                 ).build();
     }
