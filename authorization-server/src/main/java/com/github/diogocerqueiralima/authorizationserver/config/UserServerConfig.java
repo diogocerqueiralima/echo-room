@@ -9,8 +9,8 @@ import org.springframework.grpc.client.GrpcChannelFactory;
 public class UserServerConfig {
 
     @Bean
-    public UserServiceGrpc.UserServiceStub userServiceStub(GrpcChannelFactory factory) {
-        return UserServiceGrpc.newStub(factory.createChannel("users-service"));
+    public UserServiceGrpc.UserServiceBlockingStub userServiceStub(GrpcChannelFactory factory) {
+        return UserServiceGrpc.newBlockingStub(factory.createChannel("users-service"));
     }
 
 }

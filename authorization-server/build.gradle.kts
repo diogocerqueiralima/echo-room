@@ -25,6 +25,8 @@ dependencies {
     implementation(libs.spring.boot.starter.oauth2.authorization.server)
     implementation(libs.spring.boot.grpc.starter)
 
+    runtimeOnly(libs.spring.boot.devtools)
+
     testImplementation(libs.spring.boot.starter.test)
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
     testImplementation("org.junit.jupiter:junit-jupiter")

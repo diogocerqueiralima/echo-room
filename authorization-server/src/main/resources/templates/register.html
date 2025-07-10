@@ -5,9 +5,10 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" th:href="@{/css/style.css}" href="../static/css/style.css"/>
+    <link rel="stylesheet" href="../static/css/style.css" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="../static/css/register.css" th:href="@{/css/register.css}">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <title>Echo Room - Register</title>
+    <title>Document</title>
 </head>
 <body>
 
@@ -15,99 +16,63 @@
 
         <div class="container">
 
-            <div class="header">
+            <div class="title-box">
                 <h1>Create Account</h1>
-                <p>Please fill in this form to create an account.</p>
+                <p>Please fill in the form.</p>
             </div>
 
-            <form action="/register" method="post">
+            <form method="post" th:object="${user}" th:action="@{/auth/register}">
 
-                <div class="names">
+                <!--<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />-->
 
-                    <div class="field">
+                <div>
 
-                        <label for="first_name">First Name</label>
-
-                        <div>
-                            <i class='bx bxs-user'></i>
-                            <input type="text" id="first_name" name="first_name" placeholder="Type your first name">
-                        </div>
-
-                    </div>
-
-                    <div class="field">
-
-                        <label for="last_name">Last Name</label>
-
-                        <div>
-                            <i class='bx bxs-user'></i>
-                            <input type="text" id="last_name" name="last_name" placeholder="Type your last name">
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <div class="field">
-
-                    <label for="username">Username</label>
-
-                    <div>
+                    <label>
                         <i class='bx bxs-user'></i>
-                        <input type="text" id="username" name="username" placeholder="Type your username">
-                    </div>
+                        <input id="firstName" th:field="*{firstName}" type="text" placeholder="Type your first name">
+                    </label>
+
+                    <label>
+                        <i class='bx bxs-user'></i>
+                        <input id="lastName" th:field="*{lastName}" type="text" placeholder="Type your last name">
+                    </label>
 
                 </div>
 
-                <div class="field">
+                <label>
+                    <i class='bx bxs-user'></i>
+                    <input id="username" th:field="*{username}" type="text" placeholder="Type your username">
+                </label>
 
-                    <label for="email">E-mail</label>
+                <label>
+                    <i class='bx bxs-envelope'></i>
+                    <input id="email" th:field="*{email}" type="text" placeholder="Type your email">
+                </label>
 
-                    <div>
-                        <i class='bx bxs-envelope' ></i>
-                        <input type="email" id="email" name="email" placeholder="Type your e-mail">
-                    </div>
+                <label>
+                    <i class='bx bxs-key'></i>
+                    <input id="password" th:field="*{password}" type="password" placeholder="Type your password">
+                </label>
 
-                </div>
+                <label>
+                    <i class='bx bxs-key'></i>
+                    <input id="confirmPassword" th:field="*{confirmPassword}" type="password" placeholder="Confirm your password">
+                </label>
 
-                <div class="field">
+                <label class="agreement">
+                    <input id="agreement" th:field="*{agreement}" type="checkbox">
+                    <span>I agree with the terms</span>
+                </label>
 
-                    <label for="password">Password</label>
-
-                    <div>
-                        <i class='bx bxs-lock-alt'></i>
-                        <input type="password" id="password" name="password" placeholder="Type your password">
-                    </div>
-
-                </div>
-
-                <div class="field">
-
-                    <label for="confirm_password">Confirm Password</label>
-
-                    <div>
-                        <i class='bx bxs-lock-alt'></i>
-                        <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm your password">
-                    </div>
-
-                </div>
-
-                <div class="footer">
-
-                    <div class="agreement">
-                        <input type="checkbox" name="agreement" id="agreement">
-                        <label for="agreement">Aceito os Termos e Condições</label>
-                    </div>
-
-                    <button>Create Account</button>
-
-                </div>
+                <button type="submit" disabled>Submit</button>
 
             </form>
 
         </div>
 
     </main>
+
+    <script src="../static/scripts/register.js" th:src="@{/scripts/register.js}"></script>
 
 </body>
 </html>

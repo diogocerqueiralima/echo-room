@@ -14,3 +14,9 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+  thymeleaf:
+    cache: false
+
+logging:
+  level:
+    com.github.diogocerqueiralima.authorizationserver: debug

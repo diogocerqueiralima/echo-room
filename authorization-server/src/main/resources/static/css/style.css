@@ -1,11 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 
 :root {
 
     --background: oklch(21% 0.034 264.665);
-    --foreground: oklch(27.8% 0.033 256.848);
-    --primary: oklch(98.7% 0.022 95.277);
-    --button: oklch(62.3% 0.214 259.815);
+    --foreground: white;
+    --primary: oklch(50% 0.134 242.749);
+    --secondary: oklch(27.9% 0.041 260.031);
 
 }
 
@@ -14,153 +14,41 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    color: var(--primary);
-    font-size: 16px;
-    font-family: "Roboto", sans-serif;
+
+}
+
+body {
+
+    font-family: "Open Sans", sans-serif;
+    font-optical-sizing: auto;
     font-weight: 400;
+    font-style: normal;
 
-}
-
-main {
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
     background-color: var(--background);
-    gap: 10px;
-    height: 100vh;
-    width: 100vw;
+    color: white;
 
 }
 
-main .container {
+p {
 
-    display: flex;
-    flex-direction: column;
-    width: 33.3%;
-    gap: 30px;
-    background-color: var(--foreground);
-    padding: 20px 40px;
-    border-radius: 10px;
-    box-shadow: 0 4px 20px oklch(0% 0 0 / 0.3);
+    font-size: 20px;
 
 }
 
-main .header {
+input {
 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 5px;
-
-}
-
-main .header h1 {
-
-    font-size: 28px;
-    font-weight: bold;
-
-}
-
-main .header p {
-
-    opacity: 0.8;
-
-}
-
-main form {
-
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
     background-color: inherit;
-
-}
-
-main form .names {
-
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 20px;
-
-}
-
-main form .field {
-
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-
-}
-
-main form .field div {
-
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 5px;
-    padding: 5px 10px;
-    border-radius: 5px;
-    background-color: var(--background);
-
-}
-
-main form input {
-
+    border: none;
     outline: none;
-    border: none;
-    background-color: inherit;
+    color: inherit;
+    font-size: 16px;
 
 }
 
-main .footer {
+button {
 
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-
-}
-
-main .footer button {
-
-    background-color: var(--button);
     border: none;
-    padding: 10px 20px;
-    border-radius: 10px;
-    transition: 0.5s;
     cursor: pointer;
-
-}
-
-main .footer button:hover {
-
-    opacity: 0.8;
-
-}
-
-main .footer .agreement {
-
-    display: flex;
-    flex-direction: row;
-    gap: 5px;
-
-}
-
-@media only screen and (max-width: 1280px) {
-
-    main .container {
-
-        width: 100%;
-
-    }
-
-    main .field {
-
-        width: 100%;
-
-    }
+    color: inherit;
 
 }

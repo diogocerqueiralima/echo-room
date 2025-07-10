@@ -72,7 +72,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests((authorize) ->
                         authorize
                                 .requestMatchers(HttpMethod.POST, "/api/v1/clients").hasRole(User.Role.ADMIN.name())
-                                .requestMatchers(HttpMethod.GET, "/auth/**", "/css/**").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/auth/**", "/css/**", "/scripts/**").permitAll()
+                                .requestMatchers(HttpMethod.POST, "/auth/**").permitAll()
                                 .anyRequest().authenticated()
                 ).build();
     }
