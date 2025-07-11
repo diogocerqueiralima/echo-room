@@ -25,5 +25,6 @@ function init() {
 
 function inputsAreValid(firstName, lastName, username, email, password, confirmPassword, agreement) {
     return firstName.trim() !== "" && lastName.trim() !== "" && username.trim() !== "" && EMAIL_REGEX.test(email) &&
-        password.trim() !== "" && password === confirmPassword && agreement
+        password.trim() !== "" && password.trim().length >= 8 && password.trim().length <= 30 &&
+        password === confirmPassword && agreement
 }

@@ -24,6 +24,7 @@ dependencies {
     implementation(libs.spring.boot.starter.validation)
     implementation(libs.spring.boot.starter.oauth2.authorization.server)
     implementation(libs.spring.boot.grpc.starter)
+    implementation(libs.passay)
 
     runtimeOnly(libs.spring.boot.devtools)
 

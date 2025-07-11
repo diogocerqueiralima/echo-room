@@ -3,6 +3,7 @@ spring-boot = "3.5.0"
 spring-dependency-management = "1.1.7"
 postgresql = "42.7.7"
 protobuf = "0.9.5"
+passay = "1.6.6"
 
 [libraries]
 spring-boot-starter = { module = "org.springframework.boot:spring-boot-starter" }
@@ -17,6 +18,7 @@ spring-boot-starter-test = { module = "org.springframework.boot:spring-boot-star
 spring-boot-grpc-starter = { module = "org.springframework.grpc:spring-grpc-spring-boot-starter" }
 spring-boot-grpc-starter-test = { module = "org.springframework.grpc:spring-grpc-test" }
 postgresql = { module = "org.postgresql:postgresql", version.ref = "postgresql" }
+passay = { module = "org.passay:passay", version.ref = "passay" }
 
 [plugins]
 spring-boot = { id = "org.springframework.boot", version.ref = "spring-boot" }

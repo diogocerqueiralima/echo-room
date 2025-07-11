@@ -46,6 +46,8 @@ public class UserService extends UserServiceGrpc.UserServiceImplBase {
 
         User user = userRepository.save(
                 new User(
+                        request.getFirstName(),
+                        request.getLastName(),
                         request.getUsername(),
                         request.getEmail(),
                         request.getPassword(),
@@ -56,6 +58,8 @@ public class UserService extends UserServiceGrpc.UserServiceImplBase {
         );
 
         UserResponse response = UserResponse.newBuilder()
+                .setFirstName(user.getFirstName())
+                .setLastName(user.getLastName())
                 .setUsername(user.getUsername())
                 .setEmail(user.getEmail())
                 .setPassword(user.getPassword())

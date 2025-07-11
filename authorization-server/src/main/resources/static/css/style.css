@@ -6,6 +6,7 @@
     --foreground: white;
     --primary: oklch(50% 0.134 242.749);
     --secondary: oklch(27.9% 0.041 260.031);
+    --error: oklch(63.7% 0.237 25.331);
 
 }
 
@@ -50,5 +51,16 @@ button {
     border: none;
     cursor: pointer;
     color: inherit;
+
+}
+
+#notification {
+
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: var(--error);
+    padding: 10px 20px;
+    border-radius: 10px;
 
 }
