@@ -1,6 +1,6 @@
 package com.github.diogocerqueiralima.authorizationserver.config;
 
-import com.github.diogocerqueiralima.authorizationserver.model.User;
+import com.github.diogocerqueiralima.authorizationserver.repositories.CustomRegisteredClientRepository;
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
@@ -19,7 +19,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.server.authorization.client.JdbcRegisteredClientRepository;
-import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository;
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configuration.OAuth2AuthorizationServerConfiguration;
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers.OAuth2AuthorizationServerConfigurer;
 import org.springframework.security.oauth2.server.authorization.settings.AuthorizationServerSettings;
@@ -71,16 +70,18 @@ public class SecurityConfig {
         return http
                 .authorizeHttpRequests((authorize) ->
                         authorize
-                                .requestMatchers(HttpMethod.POST, "/api/v1/clients").hasRole(User.Role.ADMIN.name())
                                 .requestMatchers(HttpMethod.GET, "/auth/**", "/css/**", "/scripts/**").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/auth/**").permitAll()
-                                .anyRequest().authenticated()
+                                .requestMatchers("/admin/**").authenticated()
+                                .anyRequest().permitAll()
+                ).formLogin(form -> form
+                        .loginPage("/auth/login").permitAll()
                 ).build();
     }
 
     @Bean
-    public RegisteredClientRepository registeredClientRepository(JdbcTemplate jdbcTemplate) {
-        return new JdbcRegisteredClientRepository(jdbcTemplate);
+    public CustomRegisteredClientRepository registeredClientRepository(JdbcTemplate jdbcTemplate) {
+        return new CustomRegisteredClientRepository(jdbcTemplate, new JdbcRegisteredClientRepository(jdbcTemplate));
     }
 
     @Bean

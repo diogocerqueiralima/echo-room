@@ -3,6 +3,7 @@ package com.github.diogocerqueiralima.usersservice.services;
 import UserService.proto.UserCreate;
 import UserService.proto.UserResponse;
 import UserService.proto.UserServiceGrpc;
+import UserService.proto.UsernameLookupRequest;
 import com.github.diogocerqueiralima.usersservice.model.User;
 import com.github.diogocerqueiralima.usersservice.repositories.UserRepository;
 import com.google.protobuf.Timestamp;
@@ -22,7 +23,19 @@ public class UserService extends UserServiceGrpc.UserServiceImplBase {
         this.userRepository = userRepository;
     }
 
+    @Override
+    public void getByUsername(UsernameLookupRequest request, StreamObserver<UserResponse> responseObserver) {
 
+        userRepository.findByUsername(request.getUsername()).ifPresentOrElse(user -> {
+
+            UserResponse response = mapUserToResponse(user);
+
+            responseObserver.onNext(response);
+            responseObserver.onCompleted();
+
+        }, () -> responseObserver.onError(new StatusException(Status.NOT_FOUND.withDescription("User not found"))));
+
+    }
 
     /**
      *
@@ -57,7 +70,14 @@ public class UserService extends UserServiceGrpc.UserServiceImplBase {
                 )
         );
 
-        UserResponse response = UserResponse.newBuilder()
+        UserResponse response = mapUserToResponse(user);
+
+        responseObserver.onNext(response);
+        responseObserver.onCompleted();
+    }
+
+    private UserResponse mapUserToResponse(User user) {
+        return UserResponse.newBuilder()
                 .setFirstName(user.getFirstName())
                 .setLastName(user.getLastName())
                 .setUsername(user.getUsername())
@@ -74,9 +94,6 @@ public class UserService extends UserServiceGrpc.UserServiceImplBase {
                                 .toList()
                 )
                 .build();
-
-        responseObserver.onNext(response);
-        responseObserver.onCompleted();
     }
 
 }

@@ -9,6 +9,13 @@ option java_outer_classname = "UserServiceProto";
 service UserService {
 
   rpc create(UserCreate) returns (UserResponse);
+  rpc getByUsername(UsernameLookupRequest) returns (UserResponse);
+
+}
+
+message UsernameLookupRequest {
+
+  string username = 1;
 
 }
 

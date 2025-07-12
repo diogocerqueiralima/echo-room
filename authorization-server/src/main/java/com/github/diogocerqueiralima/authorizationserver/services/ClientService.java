@@ -1,9 +1,10 @@
 package com.github.diogocerqueiralima.authorizationserver.services;
 
+import com.github.diogocerqueiralima.authorizationserver.repositories.CustomRegisteredClientRepository;
+import org.springframework.grpc.autoconfigure.client.ClientInterceptorsConfiguration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClient;
-import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,12 +13,16 @@ import java.util.UUID;
 @Service
 public class ClientService {
 
-    private final RegisteredClientRepository registeredClientRepository;
+    private final CustomRegisteredClientRepository registeredClientRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public ClientService(RegisteredClientRepository registeredClientRepository, PasswordEncoder passwordEncoder) {
+    public ClientService(CustomRegisteredClientRepository registeredClientRepository, PasswordEncoder passwordEncoder, ClientInterceptorsConfiguration clientInterceptorsConfiguration) {
         this.registeredClientRepository = registeredClientRepository;
         this.passwordEncoder = passwordEncoder;
+    }
+
+    public List<RegisteredClient> getAll() {
+        return registeredClientRepository.findAll();
     }
 
     /**
