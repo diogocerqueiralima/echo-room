@@ -56,7 +56,7 @@ public class SecurityConfig {
                 .exceptionHandling(exception ->
                         exception
                                 .defaultAuthenticationEntryPointFor(
-                                        new LoginUrlAuthenticationEntryPoint("/login"),
+                                        new LoginUrlAuthenticationEntryPoint("/auth/login"),
                                         new MediaTypeRequestMatcher(MediaType.TEXT_HTML)
                                 )
                 )
@@ -72,7 +72,7 @@ public class SecurityConfig {
                         authorize
                                 .requestMatchers(HttpMethod.GET, "/auth/**", "/css/**", "/scripts/**").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/auth/**").permitAll()
-                                .requestMatchers("/admin/**").authenticated()
+                                .requestMatchers("/admin/**").permitAll()
                                 .anyRequest().permitAll()
                 ).formLogin(form -> form
                         .loginPage("/auth/login").permitAll()

@@ -5,10 +5,7 @@ import com.github.diogocerqueiralima.authorizationserver.services.ClientService;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/admin/clients")
@@ -20,6 +17,14 @@ public class ClientController {
         this.clientService = clientService;
     }
 
+    /**
+     *
+     * Handles GET requests to retrieve the list of clients and render the client's page.
+     *
+     * @param model the model used to pass data to the view
+     *
+     * @return the name of the template to render ("clients")
+     */
     @GetMapping
     public String getClients(Model model) {
 
@@ -34,10 +39,10 @@ public class ClientController {
      *
      * @param dto the data used to create the client
      *
-     * @return an HTTP response contained the created client public details
+     * @return redirect to the clients page
      */
     @PostMapping
-    public String create(@RequestBody @Valid CreateClientDto dto) {
+    public String create(@ModelAttribute @Valid CreateClientDto dto) {
 
         clientService.create(
                 dto.clientId(), dto.clientSecret(), dto.redirectUris(), dto.scopes()

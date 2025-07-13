@@ -21,6 +21,12 @@ public class ClientService {
         this.passwordEncoder = passwordEncoder;
     }
 
+    /**
+     *
+     * Get all RegisteredClient in the application
+     *
+     * @return a list with all RegisteredClient
+     */
     public List<RegisteredClient> getAll() {
         return registeredClientRepository.findAll();
     }
