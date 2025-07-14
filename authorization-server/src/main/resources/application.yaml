@@ -17,6 +17,14 @@ spring:
   thymeleaf:
     cache: false
 
+server:
+  servlet:
+    session:
+      cookie:
+        same-site: strict
+        http-only: true
+        secure: true
+
 logging:
   level:
     com.github.diogocerqueiralima.authorizationserver: debug

@@ -5,13 +5,53 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="../static/css/style.css" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/clients.css}">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <title>Admin - Clients</title>
 </head>
 <body>
 
-    <header th:replace="fragments/header.html :: header"></header>
+    <div class="container">
+
+        <header th:replace="fragments/header.html :: header"></header>
+
+        <main>
+
+            <div>
+                <button id="create">Create Client</button>
+            </div>
+
+            <div class="table-wrapper">
+                <table>
+
+                    <tr>
+                        <th>Client ID</th>
+                        <th>Client name</th>
+                        <th>Scopes</th>
+                        <th>Authorization Grant Types</th>
+                        <th>Actions</th>
+                    </tr>
+
+                    <tr th:each="client : ${clients}">
+                        <td th:text="${client.clientId}"></td>
+                        <td th:text="${client.clientName}"></td>
+                        <td th:text="${#strings.setJoin(client.scopes, ', ')}"></td>
+                        <td th:text="${#strings.setJoin(client.authorizationGrantTypes, ', ')}"></td>
+                        <td class="actions">
+
+                            <button id="update">Update</button>
+                            <button id="delete">Delete</button>
+
+                        </td>
+                    </tr>
+
+                </table>
+            </div>
+
+        </main>
+
+    </div>
 
 </body>
 </html>

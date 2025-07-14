@@ -1,11 +1,15 @@
 package com.github.diogocerqueiralima.authorizationserver.controllers;
 
 import com.github.diogocerqueiralima.authorizationserver.dto.CreateClientDto;
+import com.github.diogocerqueiralima.authorizationserver.dto.RegisteredClientDto;
 import com.github.diogocerqueiralima.authorizationserver.services.ClientService;
 import jakarta.validation.Valid;
+import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/admin/clients")
@@ -28,7 +32,20 @@ public class ClientController {
     @GetMapping
     public String getClients(Model model) {
 
-        model.addAttribute("clients", clientService.getAll());
+        model.addAttribute(
+                "clients",
+                clientService.getAll().stream()
+                        .map(client ->
+                                        new RegisteredClientDto(
+                                                client.getId(),
+                                                client.getClientName(),
+                                                client.getScopes(),
+                                                client.getAuthorizationGrantTypes().stream()
+                                                        .map(AuthorizationGrantType::getValue)
+                                                        .collect(Collectors.toSet())
+                                        )
+                        )
+        );
 
         return "clients";
     }

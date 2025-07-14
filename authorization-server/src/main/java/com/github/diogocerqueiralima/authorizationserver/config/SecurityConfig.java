@@ -72,7 +72,7 @@ public class SecurityConfig {
                         authorize
                                 .requestMatchers(HttpMethod.GET, "/auth/**", "/css/**", "/scripts/**").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/auth/**").permitAll()
-                                .requestMatchers("/admin/**").permitAll()
+                                .requestMatchers("/admin/**").authenticated()
                                 .anyRequest().permitAll()
                 ).formLogin(form -> form
                         .loginPage("/auth/login").permitAll()

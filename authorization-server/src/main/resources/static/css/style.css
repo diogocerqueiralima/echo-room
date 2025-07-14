@@ -6,7 +6,8 @@
     --foreground: white;
     --primary: oklch(50% 0.134 242.749);
     --secondary: oklch(27.9% 0.041 260.031);
-    --error: oklch(63.7% 0.237 25.331);
+    --red: oklch(63.7% 0.237 25.331);
+    --green: oklch(52.7% 0.154 150.069);
 
 }
 
@@ -18,13 +19,14 @@
 
 }
 
-body {
+html, body {
 
     font-family: "Open Sans", sans-serif;
     font-optical-sizing: auto;
     font-weight: 400;
     font-style: normal;
 
+    height: 100%;
     background-color: var(--background);
     color: white;
 
@@ -66,7 +68,7 @@ button {
     position: fixed;
     top: 20px;
     right: 20px;
-    background-color: var(--error);
+    background-color: var(--red);
     padding: 10px 20px;
     border-radius: 10px;
 
