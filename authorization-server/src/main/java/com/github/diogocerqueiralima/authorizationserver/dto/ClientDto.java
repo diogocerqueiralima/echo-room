@@ -1,11 +1,13 @@
 package com.github.diogocerqueiralima.authorizationserver.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
-import java.time.Instant;
+import java.util.Set;
+import java.util.UUID;
 
 public record ClientDto(
-        @JsonProperty("client_id") String clientId,
-        @JsonProperty("redirect_uris") String[] redirectUris,
-        @JsonProperty("client_id_issued_at")Instant clientIdIssuedAt
+        @NotNull UUID id, @NotBlank String clientId, @NotBlank String clientName,
+        @NotEmpty Set<String> scopes, @NotEmpty Set<String> authorizationGrantTypes
 ) {}

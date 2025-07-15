@@ -29,5 +29,6 @@ server:
 
 logging:
   level:
-    com.github.diogocerqueiralima.authorizationserver: debug
-    org.springframework.security: debug
+    org.springframework.boot.autoconfigure.web: DEBUG
+    org.springframework.web: DEBUG
+    org.springframework.security: DEBUG

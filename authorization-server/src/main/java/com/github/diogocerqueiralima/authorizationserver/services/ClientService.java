@@ -22,6 +22,16 @@ public class ClientService {
         this.passwordEncoder = passwordEncoder;
     }
 
+    public RegisteredClient getById(UUID id) {
+
+        RegisteredClient registeredClient = registeredClientRepository.findById(id.toString());
+
+        if (registeredClient == null)
+            throw new ClientNotFoundException(id);
+
+        return registeredClient;
+    }
+
     /**
      *
      * Get all RegisteredClient in the application
@@ -42,10 +52,11 @@ public class ClientService {
      *
      * @return the created RegisteredClient
      */
-    public RegisteredClient create(String clientId, String clientSecret, String[] redirectUris, String[] scopes) {
+    public RegisteredClient create(String clientId, String clientName, String clientSecret, String[] redirectUris, String[] scopes) {
 
         RegisteredClient registeredClient = RegisteredClient.withId(UUID.randomUUID().toString())
                 .clientId(clientId)
+                .clientName(clientName)
                 .clientSecret(passwordEncoder.encode(clientSecret))
                 .redirectUris(clientRedirectUris -> clientRedirectUris.addAll(List.of(redirectUris)))
                 .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)

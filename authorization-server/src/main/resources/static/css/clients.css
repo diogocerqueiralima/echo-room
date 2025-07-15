@@ -45,14 +45,7 @@ button:hover {
 
 }
 
-#update {
-
-    background-color: var(--green);
-    box-shadow: none;
-
-}
-
-#delete {
+.delete {
 
     background-color: var(--red);
     box-shadow: none;

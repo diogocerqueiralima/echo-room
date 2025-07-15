@@ -1,7 +1,7 @@
 package com.github.diogocerqueiralima.authorizationserver.controllers;
 
+import com.github.diogocerqueiralima.authorizationserver.dto.ClientDto;
 import com.github.diogocerqueiralima.authorizationserver.dto.CreateClientDto;
-import com.github.diogocerqueiralima.authorizationserver.dto.RegisteredClientDto;
 import com.github.diogocerqueiralima.authorizationserver.services.ClientService;
 import jakarta.validation.Valid;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
@@ -36,7 +36,7 @@ public class ClientController {
                 "clients",
                 clientService.getAll().stream()
                         .map(client ->
-                                        new RegisteredClientDto(
+                                        new ClientDto(
                                                 UUID.fromString(client.getId()),
                                                 client.getClientId(),
                                                 client.getClientName(),
@@ -46,6 +46,7 @@ public class ClientController {
                                                         .collect(Collectors.toSet())
                                         )
                         )
+                        .collect(Collectors.toSet())
         );
 
         return "clients";
@@ -62,7 +63,7 @@ public class ClientController {
     public String create(@ModelAttribute @Valid CreateClientDto dto) {
 
         clientService.create(
-                dto.clientId(), dto.clientSecret(), dto.redirectUris(), dto.scopes()
+                dto.clientId(), dto.clientName(), dto.clientSecret(), dto.redirectUris(), dto.scopes()
         );
 
         return "redirect:/admin/clients";
