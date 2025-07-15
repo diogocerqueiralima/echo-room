@@ -1,5 +1,6 @@
 package com.github.diogocerqueiralima.authorizationserver.services;
 
+import com.github.diogocerqueiralima.authorizationserver.exceptions.ClientNotFoundException;
 import com.github.diogocerqueiralima.authorizationserver.repositories.CustomRegisteredClientRepository;
 import org.springframework.grpc.autoconfigure.client.ClientInterceptorsConfiguration;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -52,9 +53,26 @@ public class ClientService {
                 .scopes(clientScopes -> clientScopes.addAll(List.of(scopes)))
                 .build();
 
-        this.registeredClientRepository.save(registeredClient);
+        registeredClientRepository.save(registeredClient);
 
         return registeredClient;
+    }
+
+    /**
+     *
+     * Deletes the RegisteredClient from the server
+     *
+     * @param id the RegisteredClient id
+     * @throws ClientNotFoundException if the RegisteredClient does not exist
+     */
+    public void delete(UUID id) {
+
+        RegisteredClient registeredClient = this.registeredClientRepository.findById(id.toString());
+
+        if (registeredClient == null)
+            throw new ClientNotFoundException(id);
+
+        registeredClientRepository.delete(registeredClient);
     }
 
 }

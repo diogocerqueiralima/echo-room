@@ -41,7 +41,10 @@
                         <td class="actions">
 
                             <button id="update">Update</button>
-                            <button id="delete">Delete</button>
+
+                            <form th:action="@{/admin/clients/{id}(id=${client.id})}" th:method="delete">
+                                <button id="delete">Delete</button>
+                            </form>
 
                         </td>
                     </tr>

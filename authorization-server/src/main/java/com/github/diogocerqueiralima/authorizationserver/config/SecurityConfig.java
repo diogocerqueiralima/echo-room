@@ -70,7 +70,7 @@ public class SecurityConfig {
         return http
                 .authorizeHttpRequests((authorize) ->
                         authorize
-                                .requestMatchers(HttpMethod.GET, "/auth/**", "/css/**", "/scripts/**").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/auth/**", "/css/**", "/scripts/**", "/favicon.ico").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/auth/**").permitAll()
                                 .requestMatchers("/admin/**").authenticated()
                                 .anyRequest().permitAll()

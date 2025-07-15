@@ -14,8 +14,10 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-  thymeleaf:
-    cache: false
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true
 
 server:
   servlet:

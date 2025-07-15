@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Controller
@@ -26,7 +27,6 @@ public class ClientController {
      * Handles GET requests to retrieve the list of clients and render the client's page.
      *
      * @param model the model used to pass data to the view
-     *
      * @return the name of the template to render ("clients")
      */
     @GetMapping
@@ -37,7 +37,8 @@ public class ClientController {
                 clientService.getAll().stream()
                         .map(client ->
                                         new RegisteredClientDto(
-                                                client.getId(),
+                                                UUID.fromString(client.getId()),
+                                                client.getClientId(),
                                                 client.getClientName(),
                                                 client.getScopes(),
                                                 client.getAuthorizationGrantTypes().stream()
@@ -55,8 +56,7 @@ public class ClientController {
      * POST endpoint to create a new OAuth2 client
      *
      * @param dto the data used to create the client
-     *
-     * @return redirect to the clients page
+     * @return redirect to the client's page
      */
     @PostMapping
     public String create(@ModelAttribute @Valid CreateClientDto dto) {
@@ -64,6 +64,21 @@ public class ClientController {
         clientService.create(
                 dto.clientId(), dto.clientSecret(), dto.redirectUris(), dto.scopes()
         );
+
+        return "redirect:/admin/clients";
+    }
+
+    /**
+     *
+     * DELETE endpoint to delete the OAuth2 client
+     *
+     * @param id the RegisteredClient id to delete
+     * @return redirect to the client's page
+     */
+    @DeleteMapping("/{id}")
+    public String delete(@PathVariable UUID id) {
+
+        clientService.delete(id);
 
         return "redirect:/admin/clients";
     }

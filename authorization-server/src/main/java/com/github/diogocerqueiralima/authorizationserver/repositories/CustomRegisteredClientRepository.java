@@ -27,6 +27,8 @@ public class CustomRegisteredClientRepository implements RegisteredClientReposit
 
     private static final String LOAD_REGISTERED_CLIENT_SQL = "SELECT " + COLUMN_NAMES + " FROM " + TABLE_NAME;
 
+    private static final String DELETE_REGISTERED_CLIENT_SQL = "DELETE FROM " + TABLE_NAME + " WHERE id = ?";
+
     private final JdbcTemplate jdbcTemplate;
     private final RegisteredClientRepository registeredClientRepository;
     private final JdbcRegisteredClientRepository.RegisteredClientRowMapper mapper = new JdbcRegisteredClientRepository.RegisteredClientRowMapper();
@@ -55,6 +57,10 @@ public class CustomRegisteredClientRepository implements RegisteredClientReposit
 
     public List<RegisteredClient> findAll() {
         return jdbcTemplate.query(LOAD_REGISTERED_CLIENT_SQL, mapper);
+    }
+
+    public void delete(RegisteredClient registeredClient) {
+        jdbcTemplate.update(DELETE_REGISTERED_CLIENT_SQL, registeredClient.getId());
     }
 
 }
