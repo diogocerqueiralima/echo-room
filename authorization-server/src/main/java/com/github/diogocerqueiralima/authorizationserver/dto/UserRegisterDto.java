@@ -6,8 +6,13 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 public record UserRegisterDto(
-        @NotBlank String firstName, @NotBlank String lastName, @NotBlank String username, @Email String email,
-        @Password String password, @Password String confirmPassword, @NotNull boolean agreement
+        @NotBlank(message = "first name should not be blank") String firstName,
+        @NotBlank(message = "last name should not be blank") String lastName,
+        @NotBlank(message = "username should not be blank") String username,
+        @Email(message = "you should insert a valid email") String email,
+        @Password(message = "you should insert a valid password") String password,
+        @Password(message = "you should insert a valid password") String confirmPassword,
+        @NotNull(message = "you should agree with the terms") boolean agreement
 ) {
 
     public UserRegisterDto() {

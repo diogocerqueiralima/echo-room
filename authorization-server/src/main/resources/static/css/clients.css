@@ -87,3 +87,11 @@ tr:nth-child(even) {
 tr:nth-child(odd) {
     background-color: var(--secondary);
 }
+
+#client-secret {
+
+    position: fixed;
+    top: 30px;
+    right: 30px;
+
+}

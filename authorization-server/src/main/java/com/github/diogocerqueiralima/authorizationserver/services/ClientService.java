@@ -8,6 +8,8 @@ import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClient;
 import org.springframework.stereotype.Service;
 
+import java.security.SecureRandom;
+import java.util.Base64;
 import java.util.List;
 import java.util.UUID;
 
@@ -46,27 +48,30 @@ public class ClientService {
      * Creates and persists a RegisteredClient.
      *
      * @param clientId the client ID
-     * @param clientSecret the client secret (will be encoded)
      * @param redirectUris the redirect URIs that the client is allowed to use
      * @param scopes the scopes the client can request from the authorization server
      *
-     * @return the created RegisteredClient
+     * @return the generated client secret
      */
-    public RegisteredClient create(String clientId, String clientName, String clientSecret, String[] redirectUris, String[] scopes) {
+    public String create(
+            String clientId, String clientName, List<String> redirectUris, List<String> scopes,
+            List<AuthorizationGrantType> authorizationGrantTypes
+    ) {
+
+        String clientSecret = generateClientSecret(64);
 
         RegisteredClient registeredClient = RegisteredClient.withId(UUID.randomUUID().toString())
                 .clientId(clientId)
                 .clientName(clientName)
-                .clientSecret(passwordEncoder.encode(clientSecret))
-                .redirectUris(clientRedirectUris -> clientRedirectUris.addAll(List.of(redirectUris)))
-                .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
-                .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
-                .scopes(clientScopes -> clientScopes.addAll(List.of(scopes)))
+                .clientSecret(clientSecret)
+                .redirectUris(set -> set.addAll(redirectUris))
+                .authorizationGrantTypes(set -> set.addAll(authorizationGrantTypes))
+                .scopes(set -> set.addAll(scopes))
                 .build();
 
         registeredClientRepository.save(registeredClient);
 
-        return registeredClient;
+        return clientSecret;
     }
 
     /**
@@ -84,6 +89,16 @@ public class ClientService {
             throw new ClientNotFoundException(id);
 
         registeredClientRepository.delete(registeredClient);
+    }
+
+    private String generateClientSecret(int byteLength) {
+
+        SecureRandom secureRandom = new SecureRandom();
+
+        byte[] bytes = new byte[byteLength];
+        secureRandom.nextBytes(bytes);
+
+        return Base64.getUrlEncoder().withoutPadding().encodeToString(bytes);
     }
 
 }

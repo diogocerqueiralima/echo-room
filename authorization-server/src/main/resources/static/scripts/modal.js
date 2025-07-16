@@ -1,4 +1,8 @@
 function openModal(title, method, action, data) {
+
+    if (document.querySelector(".modal-overlay"))
+        return;
+
     const overlay = document.createElement("div");
     overlay.classList.add("modal-overlay");
 
@@ -18,7 +22,9 @@ function openModal(title, method, action, data) {
         html += `
             <label>
                 <span>${input.title}</span>
-                <input 
+                <input
+                    id="${input.name}"
+                    class="modal-input"
                     type="${input.type}" 
                     name="${input.name}" 
                     value="${input.value}" 
@@ -29,7 +35,7 @@ function openModal(title, method, action, data) {
     }
 
     html += `
-            <button type="submit">${data.button}</button>
+            <button id="modal-submit" type="submit">${data.button}</button>
         </form>
     `;
 
@@ -38,4 +44,26 @@ function openModal(title, method, action, data) {
     document.body.append(overlay);
 
     document.getElementById("modal-close").addEventListener("click", () => overlay.remove());
+    document.querySelectorAll(".modal-input").forEach(input => {
+        input.addEventListener("input", validateAll);
+    });
+
+    validateAll();
+
+    function validateAll() {
+
+        let valid = true;
+        for (let option of data.inputs) {
+
+            const value = document.getElementById(option.name).value;
+            if (!option.validate(value)) {
+                valid = false;
+                break;
+            }
+
+        }
+
+        document.getElementById("modal-submit").disabled = !valid;
+    }
+
 }

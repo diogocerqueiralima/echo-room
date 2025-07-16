@@ -15,6 +15,13 @@
 </head>
 <body>
 
+    <pre th:if="${message}" id="notification" th:text="${message}"></pre>
+
+    <label th:if="${clientSecret}" id="client-secret">
+        <input type="text" id="secretInput" th:value="${clientSecret}" hidden />
+        <button type="button" id="copySecretBtn">Click to copy the client secret</button>
+    </label>
+
     <div class="container">
 
         <header th:replace="~{fragments/header.html :: header}"></header>

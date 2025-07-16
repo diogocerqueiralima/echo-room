@@ -8,6 +8,7 @@ import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -60,11 +61,13 @@ public class ClientController {
      * @return redirect to the client's page
      */
     @PostMapping
-    public String create(@ModelAttribute @Valid CreateClientDto dto) {
+    public String create(@ModelAttribute @Valid CreateClientDto dto, RedirectAttributes redirectAttributes) {
 
-        clientService.create(
-                dto.clientId(), dto.clientName(), dto.clientSecret(), dto.redirectUris(), dto.scopes()
+        String clientSecret = clientService.create(
+                dto.clientId(), dto.clientName(), dto.redirectUris(), dto.scopes(), dto.authorizationGrantTypes()
         );
+
+        redirectAttributes.addFlashAttribute("clientSecret", clientSecret);
 
         return "redirect:/admin/clients";
     }

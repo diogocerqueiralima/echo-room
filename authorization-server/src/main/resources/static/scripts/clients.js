@@ -19,47 +19,68 @@ function init() {
                         name: "_csrf",
                         value: csrfToken,
                         type: "hidden",
-                        placeholder: ""
+                        placeholder: "",
+                        validate: () => true
                     },
                     {
                         title: "Client Name",
                         name: "clientName",
                         value: "",
                         type: "text",
-                        placeholder: "Restaurant Application"
+                        placeholder: "Restaurant Application",
+                        validate: value => value.trim() !== ""
                     },
                     {
                         title: "Client ID",
                         name: "clientId",
                         value: "",
                         type: "text",
-                        placeholder: "restaurant_application"
-                    },
-                    {
-                        title: "Client Secret",
-                        name: "clientSecret",
-                        value: "",
-                        type: "text",
-                        placeholder: "my_secret_code"
+                        placeholder: "restaurant_application",
+                        validate: value => value.trim() !== ""
                     },
                     {
                         title: "Scopes",
                         name: "scopes",
                         value: "",
                         type: "text",
-                        placeholder: "[openid, read, write]"
+                        placeholder: "openid, read, write",
+                        validate: value => value.trim() !== ""
+                    },
+                    {
+                        title: "Authorization Grant Types",
+                        name: "authorizationGrantTypes",
+                        value: "",
+                        type: "text",
+                        placeholder: "AUTHORIZATION_CODE, REFRESH_TOKEN",
+                        validate: value => value.trim() !== ""
                     },
                     {
                         title: "Redirect URIs",
                         name: "redirectUris",
                         value: "",
                         type: "text",
-                        placeholder: "[http://localhost/redirect]"
+                        placeholder: "http://localhost/redirect]",
+                        validate: value => value.trim() !== ""
                     }
                 ]
             }
         )
 
     })
+
+    const copySecretBtn = document.getElementById("copySecretBtn")
+
+    copySecretBtn.addEventListener('click', () => {
+
+        const secretInput = document.getElementById('secretInput');
+        secretInput.select();
+        secretInput.setSelectionRange(0, 99999);
+
+        navigator.clipboard.writeText(secretInput.value).then(() => {
+            copySecretBtn.style.backgroundColor = "var(--green)"
+            copySecretBtn.style.cursor = "default"
+            copySecretBtn.textContent = "Client Secret copied!"
+        })
+    });
 
 }

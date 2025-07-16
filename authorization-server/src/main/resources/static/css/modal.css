@@ -15,6 +15,7 @@
 
 .modal {
 
+    width: 50%;
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -22,7 +23,6 @@
     padding: 40px 20px 20px 20px;
     border-radius: 8px;
     z-index: 1001;
-    position: relative;
 
 }
 
@@ -81,5 +81,26 @@
 
     margin-top: 10px;
     box-shadow: none;
+    background-color: var(--secondary);
+    cursor: default;
+
+}
+
+.modal button:hover {
+
+    opacity: 1;
+
+}
+
+.modal button:enabled {
+
+    background-color: var(--primary);
+    cursor: pointer;
+
+}
+
+.modal button:enabled:hover {
+
+    opacity: 0.8;
 
 }
