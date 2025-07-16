@@ -57,6 +57,14 @@ The application consists of multiple distributed services communicating using di
 
 ---
 
+🔐 Authorization Server
+
+The Authorization Server handles user authentication and OAuth2 client management within the system. It provides pages for user registration and login, facilitating secure access to the application.
+
+- It communicates with the Users Service via gRPC to manage user data — it does not store any user information itself.
+- All user details (creation, retrieval, updates) are handled exclusively by the Users Service.
+- Additionally, the Authorization Server includes a page for creating OAuth clients, which will be extended with more features in the future.
+
 ## 💬 Conversation Service
 
 This service is responsible for managing all conversations within the application, including both private one-on-one chats and group conversations. It provides essential operations to create, update, and delete conversations, manage participants, and configure permissions and related metadata.
