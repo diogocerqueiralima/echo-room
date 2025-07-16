@@ -59,7 +59,7 @@ function init() {
                         name: "redirectUris",
                         value: "",
                         type: "text",
-                        placeholder: "http://localhost/redirect]",
+                        placeholder: "http://localhost/redirect",
                         validate: value => value.trim() !== ""
                     }
                 ]

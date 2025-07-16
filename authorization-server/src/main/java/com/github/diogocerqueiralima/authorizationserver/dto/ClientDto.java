@@ -8,6 +8,6 @@ import java.util.Set;
 import java.util.UUID;
 
 public record ClientDto(
-        @NotNull UUID id, @NotBlank String clientId, @NotBlank String clientName,
-        @NotEmpty Set<String> scopes, @NotEmpty Set<String> authorizationGrantTypes
+        @NotNull UUID id, @NotBlank String clientId, @NotBlank String clientName, @NotEmpty Set<String> scopes,
+        @NotEmpty Set<String> redirectUris, @NotEmpty Set<String> authorizationGrantTypes
 ) {}

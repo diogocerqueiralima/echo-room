@@ -39,6 +39,7 @@
                         <th>Client ID</th>
                         <th>Client name</th>
                         <th>Scopes</th>
+                        <th>Redirect URIs</th>
                         <th>Authorization Grant Types</th>
                         <th>Actions</th>
                     </tr>
@@ -48,6 +49,7 @@
                         <td th:text="${client.clientId}"></td>
                         <td th:text="${client.clientName}"></td>
                         <td th:text="${#strings.setJoin(client.scopes, ', ')}"></td>
+                        <td th:text="${#strings.setJoin(client.redirectUris, ', ')}"></td>
                         <td th:text="${#strings.setJoin(client.authorizationGrantTypes, ', ')}"></td>
                         <td class="actions">
 

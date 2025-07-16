@@ -42,6 +42,7 @@ public class ClientController {
                                                 client.getClientId(),
                                                 client.getClientName(),
                                                 client.getScopes(),
+                                                client.getRedirectUris(),
                                                 client.getAuthorizationGrantTypes().stream()
                                                         .map(AuthorizationGrantType::getValue)
                                                         .collect(Collectors.toSet())
