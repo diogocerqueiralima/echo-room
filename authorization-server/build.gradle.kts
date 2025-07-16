@@ -26,8 +26,6 @@ dependencies {
     implementation(libs.spring.boot.grpc.starter)
     implementation(libs.passay)
 
-    runtimeOnly(libs.spring.boot.devtools)
-
     testImplementation(libs.spring.boot.starter.test)
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
     testImplementation("org.junit.jupiter:junit-jupiter")

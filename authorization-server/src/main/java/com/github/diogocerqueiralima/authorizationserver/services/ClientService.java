@@ -2,7 +2,6 @@ package com.github.diogocerqueiralima.authorizationserver.services;
 
 import com.github.diogocerqueiralima.authorizationserver.exceptions.ClientNotFoundException;
 import com.github.diogocerqueiralima.authorizationserver.repositories.CustomRegisteredClientRepository;
-import org.springframework.grpc.autoconfigure.client.ClientInterceptorsConfiguration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClient;
@@ -19,7 +18,7 @@ public class ClientService {
     private final CustomRegisteredClientRepository registeredClientRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public ClientService(CustomRegisteredClientRepository registeredClientRepository, PasswordEncoder passwordEncoder, ClientInterceptorsConfiguration clientInterceptorsConfiguration) {
+    public ClientService(CustomRegisteredClientRepository registeredClientRepository, PasswordEncoder passwordEncoder) {
         this.registeredClientRepository = registeredClientRepository;
         this.passwordEncoder = passwordEncoder;
     }
@@ -58,12 +57,12 @@ public class ClientService {
             List<AuthorizationGrantType> authorizationGrantTypes
     ) {
 
-        String clientSecret = generateClientSecret(64);
+        String clientSecret = generateClientSecret(32);
 
         RegisteredClient registeredClient = RegisteredClient.withId(UUID.randomUUID().toString())
                 .clientId(clientId)
                 .clientName(clientName)
-                .clientSecret(clientSecret)
+                .clientSecret(passwordEncoder.encode(clientSecret))
                 .redirectUris(set -> set.addAll(redirectUris))
                 .authorizationGrantTypes(set -> set.addAll(authorizationGrantTypes))
                 .scopes(set -> set.addAll(scopes))
@@ -91,14 +90,14 @@ public class ClientService {
         registeredClientRepository.delete(registeredClient);
     }
 
-    private String generateClientSecret(int byteLength) {
+    private String generateClientSecret(int length) {
 
         SecureRandom secureRandom = new SecureRandom();
 
-        byte[] bytes = new byte[byteLength];
+        byte[] bytes = new byte[length];
         secureRandom.nextBytes(bytes);
 
-        return Base64.getUrlEncoder().withoutPadding().encodeToString(bytes);
+        return Base64.getUrlEncoder().encodeToString(bytes);
     }
 
 }
