@@ -57,7 +57,7 @@ The application consists of multiple distributed services communicating using di
 
 ---
 
-🔐 Authorization Server
+## 🔐 Authorization Server
 
 The Authorization Server handles user authentication and OAuth2 client management within the system. It provides pages for user registration and login, facilitating secure access to the application.
 
