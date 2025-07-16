@@ -42,7 +42,7 @@ The application consists of multiple distributed services communicating using di
 - Build a functional, scalable chat system
 - Apply solid microservices architecture principles
 - Integrate multiple communication strategies (REST, gRPC, WebSockets, async messaging)
-- Demonstrate practical skills in modern technologies and DevOps practices
+- Demonstrate practical skills in modern technologies
 
 ---
 
