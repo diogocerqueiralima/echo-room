@@ -71,7 +71,7 @@ This service is responsible for managing all conversations within the applicatio
 
 Currently, there are two entities representing the types of conversations in the system: **PRIVATE_CHAT**, which involves exactly two participants, and **GROUP_CHAT**, which includes two or more participants and supports additional features such as changing the group’s name, description, image, and more.
 
-![conversation-service](https://github.com/user-attachments/assets/7cfc9a09-d833-46bc-a246-9de8a1fd4713)
+![conversation-service](https://github.com/user-attachments/assets/04359bc6-61a5-48e4-84fb-4f68216edf57)
 
 ---
 
