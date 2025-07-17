@@ -1,4 +1,4 @@
-package com.github.diogocerqueiralima.conversationservice.exceptions;
+package com.github.diogocerqueiralima.conversationservice.domain.exceptions;
 
 public class InvalidParticipantsException extends RuntimeException {
 

@@ -1,11 +1,12 @@
 spring:
   application:
     name: "conversation-service"
-  datasource:
-    driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://${POSTGRESQL_HOST}:${POSTGRESQL_PORT}/${POSTGRESQL_DATABASE}
+  r2dbc:
+    url: r2dbc:postgresql://${POSTGRESQL_HOST}:${POSTGRESQL_PORT}/${POSTGRESQL_DATABASE}
     username: ${POSTGRESQL_USERNAME}
     password: ${POSTGRESQL_PASSWORD}
-  jpa:
-    hibernate:
-      ddl-auto: update
+  grpc:
+    client:
+      channels:
+        users-service:
+          address: localhost:9000

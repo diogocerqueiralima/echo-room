@@ -19,8 +19,10 @@ dependencies {
     implementation(project(":common-protos"))
     implementation(libs.postgresql)
     implementation(libs.spring.boot.starter.webflux)
-    implementation(libs.spring.boot.starter.data.jpa)
+    implementation(libs.spring.boot.starter.data.r2dbc)
+    implementation(libs.r2dbc.postgresql)
     implementation(libs.spring.boot.grpc.starter)
+    implementation(libs.spring.boot.starter.validation)
 
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
     testImplementation("org.junit.jupiter:junit-jupiter")

@@ -1,12 +1,7 @@
-package com.github.diogocerqueiralima.conversationservice.model;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+package com.github.diogocerqueiralima.conversationservice.domain.model;
 
 import java.util.List;
 
-@Entity
-@Table(name = "private_chat")
 public class PrivateChat extends Chat {
 
     public PrivateChat() {}
