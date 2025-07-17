@@ -1,8 +1,6 @@
 package com.github.diogocerqueiralima.conversationservice.model;
 
-import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.Table;
 
 import java.util.List;
@@ -10,9 +8,6 @@ import java.util.List;
 @Entity
 @Table(name = "private_chat")
 public class PrivateChat extends Chat {
-
-    @ElementCollection(fetch = FetchType.EAGER)
-    private List<Long> blockedBy;
 
     public PrivateChat() {}
 
