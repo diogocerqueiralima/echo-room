@@ -20,6 +20,7 @@ dependencies {
     implementation(libs.postgresql)
     implementation(libs.spring.boot.starter.webflux)
     implementation(libs.spring.boot.starter.data.jpa)
+    implementation(libs.spring.boot.grpc.starter)
 
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
     testImplementation("org.junit.jupiter:junit-jupiter")

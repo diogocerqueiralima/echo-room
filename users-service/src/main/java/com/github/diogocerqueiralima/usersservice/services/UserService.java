@@ -1,99 +1,42 @@
 package com.github.diogocerqueiralima.usersservice.services;
 
-import UserService.proto.UserCreate;
-import UserService.proto.UserResponse;
-import UserService.proto.UserServiceGrpc;
-import UserService.proto.UsernameLookupRequest;
+import com.github.diogocerqueiralima.usersservice.exceptions.UserAlreadyExistsException;
+import com.github.diogocerqueiralima.usersservice.exceptions.UserNotFoundException;
 import com.github.diogocerqueiralima.usersservice.model.User;
 import com.github.diogocerqueiralima.usersservice.repositories.UserRepository;
-import com.google.protobuf.Timestamp;
-import io.grpc.Status;
-import io.grpc.StatusException;
-import io.grpc.stub.StreamObserver;
-import org.springframework.grpc.server.service.GrpcService;
+import org.springframework.stereotype.Service;
 
-import java.util.stream.Collectors;
+import java.util.Set;
 
-@GrpcService
-public class UserService extends UserServiceGrpc.UserServiceImplBase {
+@Service
+public class UserService {
 
     private final UserRepository userRepository;
 
-    public UserService(UserRepository userRepository) {
+    private UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
-    @Override
-    public void getByUsername(UsernameLookupRequest request, StreamObserver<UserResponse> responseObserver) {
-
-        userRepository.findByUsername(request.getUsername()).ifPresentOrElse(user -> {
-
-            UserResponse response = mapUserToResponse(user);
-
-            responseObserver.onNext(response);
-            responseObserver.onCompleted();
-
-        }, () -> responseObserver.onError(new StatusException(Status.NOT_FOUND.withDescription("User not found"))));
-
+    public User getByUsername(String username) {
+        return userRepository.findByUsername(username).orElseThrow(() -> new UserNotFoundException(username));
     }
 
-    /**
-     *
-     * Creates and persists a new user
-     *
-     * @param request the data to create the user
-     * @param responseObserver the observer to send the response when it is created
-     *
-     */
-    @Override
-    public void create(UserCreate request, StreamObserver<UserResponse> responseObserver) {
+    public boolean existsById(Long id) {
+        return userRepository.existsById(id);
+    }
 
-        if (userRepository.existsByUsernameOrEmail(request.getUsername(), request.getEmail())) {
-            responseObserver.onError(
-                    new StatusException(
-                            Status.ALREADY_EXISTS.withDescription("User with username or email already exists")
-                    )
-            );
-            return;
-        }
+    public User create(
+            String firstName, String lastName, String username, String email, String password, Set<User.Role> roles
+    ) {
 
-        User user = userRepository.save(
+        if (userRepository.existsByUsernameOrEmail(username, email))
+            throw new UserAlreadyExistsException();
+
+        return userRepository.save(
                 new User(
-                        request.getFirstName(),
-                        request.getLastName(),
-                        request.getUsername(),
-                        request.getEmail(),
-                        request.getPassword(),
-                        request.getRolesList().stream()
-                                .map(User.Role::valueOf)
-                                .collect(Collectors.toSet())
+                        firstName, lastName, username, email, password, roles
                 )
         );
-
-        UserResponse response = mapUserToResponse(user);
-
-        responseObserver.onNext(response);
-        responseObserver.onCompleted();
-    }
-
-    private UserResponse mapUserToResponse(User user) {
-        return UserResponse.newBuilder()
-                .setFirstName(user.getFirstName())
-                .setLastName(user.getLastName())
-                .setUsername(user.getUsername())
-                .setEmail(user.getEmail())
-                .setPassword(user.getPassword())
-                .setCreatedAt(
-                        Timestamp.newBuilder()
-                                .setNanos(user.getCreatedAt().getNano())
-                                .build()
-                )
-                .addAllRoles(
-                        user.getRoles().stream()
-                                .map(User.Role::name)
-                                .toList()
-                )
-                .build();
     }
 
 }

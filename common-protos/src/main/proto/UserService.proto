@@ -10,12 +10,25 @@ service UserService {
 
   rpc create(UserCreate) returns (UserResponse);
   rpc getByUsername(UsernameLookupRequest) returns (UserResponse);
+  rpc existsById(IdLookupRequest) returns (ExistsResponse);
 
 }
 
 message UsernameLookupRequest {
 
   string username = 1;
+
+}
+
+message IdLookupRequest {
+
+  int64 id = 1;
+
+}
+
+message ExistsResponse {
+
+  bool value = 1;
 
 }
 
