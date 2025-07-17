@@ -18,6 +18,7 @@ dependencies {
 
     implementation(project(":common-protos"))
     implementation(libs.postgresql)
+    implementation(libs.spring.boot.starter.webflux)
     implementation(libs.spring.boot.starter.data.jpa)
 
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
