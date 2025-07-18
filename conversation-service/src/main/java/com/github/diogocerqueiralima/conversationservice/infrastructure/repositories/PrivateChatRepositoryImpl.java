@@ -94,4 +94,14 @@ public class PrivateChatRepositoryImpl implements PrivateChatRepository {
                 );
     }
 
+    @Override
+    public Mono<Boolean> existsByParticipants(List<Participant> participants) {
+        return participantRepository.existsChatByParticipantIds(
+                participants.stream()
+                        .map(Participant::getId)
+                        .toList(),
+                participants.size()
+        );
+    }
+
 }

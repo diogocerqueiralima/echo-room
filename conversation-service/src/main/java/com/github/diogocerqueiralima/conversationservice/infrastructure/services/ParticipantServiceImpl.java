@@ -1,11 +1,11 @@
-package com.github.diogocerqueiralima.conversationservice.application.services;
+package com.github.diogocerqueiralima.conversationservice.infrastructure.services;
 
 import UserService.proto.IdLookupRequest;
 import UserService.proto.UserResponse;
 import UserService.proto.UserServiceGrpc;
 import com.github.diogocerqueiralima.conversationservice.domain.exceptions.ParticipantNotFoundException;
 import com.github.diogocerqueiralima.conversationservice.domain.model.Participant;
-import com.github.diogocerqueiralima.conversationservice.domain.ports.inbound.ParticipantService;
+import com.github.diogocerqueiralima.conversationservice.domain.ports.outbound.ParticipantService;
 import io.grpc.Status;
 import io.grpc.StatusException;
 import io.grpc.stub.StreamObserver;

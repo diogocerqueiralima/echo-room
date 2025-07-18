@@ -2,22 +2,43 @@ package com.github.diogocerqueiralima.conversationservice.domain.model;
 
 import com.github.diogocerqueiralima.conversationservice.domain.exceptions.InvalidParticipantsException;
 
+import java.time.Instant;
 import java.util.List;
 
 public class GroupChat extends Chat {
 
-    private String name;
+    private final String name;
 
-    private String description;
+    private final String description;
 
-    private Long createdBy;
+    private final Participant createdBy;
 
-    private Long owner;
+    private final Participant owner;
 
-    private String image;
+    private final String image;
 
-    public GroupChat(List<Participant> participants) {
+    public GroupChat(
+            Long id, Instant createdAt, List<Participant> participants, String name, String description,
+            Participant createdBy, Participant owner, String image
+    ) {
+        super(id, createdAt, participants);
+        this.name = name;
+        this.description = description;
+        this.createdBy = createdBy;
+        this.owner = owner;
+        this.image = image;
+    }
+
+    public GroupChat(
+            List<Participant> participants, String name, String description, Participant createdBy,
+            Participant owner, String image
+    ) {
         super(validateParticipants(participants));
+        this.name = name;
+        this.description = description;
+        this.createdBy = createdBy;
+        this.owner = owner;
+        this.image = image;
     }
 
     private static List<Participant> validateParticipants(List<Participant> participants) {

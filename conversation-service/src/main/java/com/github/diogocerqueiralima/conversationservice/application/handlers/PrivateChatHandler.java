@@ -7,6 +7,7 @@ import com.github.diogocerqueiralima.conversationservice.application.dto.Private
 import com.github.diogocerqueiralima.conversationservice.domain.exceptions.ChatNotFoundException;
 import com.github.diogocerqueiralima.conversationservice.domain.exceptions.InvalidParticipantsException;
 import com.github.diogocerqueiralima.conversationservice.domain.exceptions.ParticipantNotFoundException;
+import com.github.diogocerqueiralima.conversationservice.domain.exceptions.PrivateChatAlreadyExists;
 import com.github.diogocerqueiralima.conversationservice.domain.model.Participant;
 import com.github.diogocerqueiralima.conversationservice.domain.ports.inbound.PrivateChatService;
 import org.springframework.http.HttpStatus;
@@ -47,7 +48,7 @@ public class PrivateChatHandler {
                         return ServerResponse.status(HttpStatus.NOT_FOUND)
                                 .bodyValue(new ApiResponseDto<>(e.getMessage(), null));
 
-                    if (e instanceof InvalidParticipantsException)
+                    if (e instanceof InvalidParticipantsException || e instanceof PrivateChatAlreadyExists)
                         return ServerResponse.status(HttpStatus.BAD_REQUEST)
                                 .bodyValue(new ApiResponseDto<>(e.getMessage(), null));
 

@@ -9,7 +9,7 @@ public class Chat {
 
     private final Instant createdAt;
 
-    private List<Participant> participants;
+    private final List<Participant> participants;
 
     public Chat(Long id, Instant createdAt, List<Participant> participants) {
         this.id = id;
@@ -31,10 +31,6 @@ public class Chat {
 
     public List<Participant> getParticipants() {
         return participants;
-    }
-
-    public void setParticipants(List<Participant> participants) {
-        this.participants = participants;
     }
 
 }

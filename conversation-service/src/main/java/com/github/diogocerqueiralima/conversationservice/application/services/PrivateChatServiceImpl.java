@@ -2,9 +2,11 @@ package com.github.diogocerqueiralima.conversationservice.application.services;
 
 import com.github.diogocerqueiralima.conversationservice.application.dto.CreatePrivateChatDto;
 import com.github.diogocerqueiralima.conversationservice.domain.exceptions.ChatNotFoundException;
+import com.github.diogocerqueiralima.conversationservice.domain.exceptions.PrivateChatAlreadyExists;
 import com.github.diogocerqueiralima.conversationservice.domain.model.PrivateChat;
 import com.github.diogocerqueiralima.conversationservice.domain.ports.inbound.PrivateChatService;
 import com.github.diogocerqueiralima.conversationservice.domain.ports.outbound.PrivateChatRepository;
+import com.github.diogocerqueiralima.conversationservice.infrastructure.services.ParticipantServiceImpl;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -25,10 +27,13 @@ public class PrivateChatServiceImpl implements PrivateChatService {
         return Flux.fromIterable(dto.participants())
                 .flatMap(participantService::getById)
                 .collectList()
-                .flatMap(participants -> {
-                    PrivateChat privateChat = new PrivateChat(participants);
-                    return privateChatRepository.save(privateChat);
-                });
+                .flatMap(participants ->
+                        privateChatRepository.existsByParticipants(participants)
+                                .flatMap(exists ->
+                                        exists ? Mono.error(new PrivateChatAlreadyExists()) :
+                                                privateChatRepository.save(new PrivateChat(participants))
+                                )
+                );
     }
 
     @Override
@@ -38,10 +43,7 @@ public class PrivateChatServiceImpl implements PrivateChatService {
                 .flatMap(privateChat -> Flux.fromIterable(privateChat.getParticipants())
                         .flatMap(participant -> participantService.getById(participant.getId()))
                         .collectList()
-                        .map(participants -> {
-                            privateChat.setParticipants(participants);
-                            return privateChat;
-                        })
+                        .map(privateChat::withParticipants)
                 );
     }
 }

@@ -7,9 +7,7 @@ import org.springframework.data.relational.core.mapping.Table;
 public class PrivateChatEntity {
 
     @Id
-    private Long id;
-
-    public PrivateChatEntity() {}
+    private final Long id;
 
     public PrivateChatEntity(Long id) {
         this.id = id;

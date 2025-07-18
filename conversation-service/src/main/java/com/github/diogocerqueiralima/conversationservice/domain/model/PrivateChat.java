@@ -15,6 +15,10 @@ public class PrivateChat extends Chat {
         super(validateParticipants(participants));
     }
 
+    public PrivateChat withParticipants(List<Participant> participants) {
+        return new PrivateChat(this.getId(), this.getCreatedAt(), participants);
+    }
+
     private static List<Participant> validateParticipants(List<Participant> participants) {
 
         if (participants == null || participants.size() != 2 || participants.get(0).equals(participants.get(1)))

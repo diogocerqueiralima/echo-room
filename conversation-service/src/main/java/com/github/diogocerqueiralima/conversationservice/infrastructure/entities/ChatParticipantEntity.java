@@ -7,10 +7,10 @@ import org.springframework.data.relational.core.mapping.Table;
 public class ChatParticipantEntity {
 
     @Column("chat_id")
-    private Long chatId;
+    private final Long chatId;
 
     @Column("participant_id")
-    private Long participantId;
+    private final Long participantId;
 
     public ChatParticipantEntity(Long chatId, Long participantId) {
         this.chatId = chatId;

@@ -10,12 +10,10 @@ import java.time.Instant;
 public class ChatEntity {
 
     @Id
-    private Long id;
+    private final Long id;
 
     @CreatedDate
-    private Instant createdAt;
-
-    public ChatEntity() {}
+    private final Instant createdAt;
 
     public ChatEntity(Long id, Instant createdAt) {
         this.id = id;
