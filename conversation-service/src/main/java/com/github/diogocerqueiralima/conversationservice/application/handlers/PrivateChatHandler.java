@@ -8,7 +8,6 @@ import com.github.diogocerqueiralima.conversationservice.domain.exceptions.ChatN
 import com.github.diogocerqueiralima.conversationservice.domain.exceptions.InvalidParticipantsException;
 import com.github.diogocerqueiralima.conversationservice.domain.exceptions.ParticipantNotFoundException;
 import com.github.diogocerqueiralima.conversationservice.domain.exceptions.PrivateChatAlreadyExists;
-import com.github.diogocerqueiralima.conversationservice.domain.model.Participant;
 import com.github.diogocerqueiralima.conversationservice.domain.ports.inbound.PrivateChatService;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
@@ -42,19 +41,7 @@ public class PrivateChatHandler {
                                 )
                         ))
                 )
-                .onErrorResume(e -> {
-
-                    if (e instanceof ParticipantNotFoundException)
-                        return ServerResponse.status(HttpStatus.NOT_FOUND)
-                                .bodyValue(new ApiResponseDto<>(e.getMessage(), null));
-
-                    if (e instanceof InvalidParticipantsException || e instanceof PrivateChatAlreadyExists)
-                        return ServerResponse.status(HttpStatus.BAD_REQUEST)
-                                .bodyValue(new ApiResponseDto<>(e.getMessage(), null));
-
-                    return ServerResponse.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                            .bodyValue(new ApiResponseDto<>(e.getMessage(), null));
-                });
+                .onErrorResume(this::onErrorResume);
     }
 
     public Mono<ServerResponse> getById(ServerRequest serverRequest) {
@@ -76,15 +63,21 @@ public class PrivateChatHandler {
                                 )
                         ))
                 )
-                .onErrorResume(e -> {
+                .onErrorResume(this::onErrorResume);
+    }
 
-                    if (e instanceof ChatNotFoundException)
-                        return ServerResponse.status(HttpStatus.NOT_FOUND)
-                                .bodyValue(new ApiResponseDto<>(e.getMessage(), null));
+    private Mono<ServerResponse> onErrorResume(Throwable throwable) {
 
-                    return ServerResponse.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                            .bodyValue(new ApiResponseDto<>(e.getMessage(), null));
-                });
+        if (throwable instanceof ChatNotFoundException || throwable instanceof ParticipantNotFoundException)
+            return ServerResponse.status(HttpStatus.NOT_FOUND)
+                    .bodyValue(new ApiResponseDto<>(throwable.getMessage(), null));
+
+        if (throwable instanceof PrivateChatAlreadyExists || throwable instanceof InvalidParticipantsException)
+            return ServerResponse.status(HttpStatus.BAD_REQUEST)
+                    .bodyValue(new ApiResponseDto<>(throwable.getMessage(), null));
+
+        return ServerResponse.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .bodyValue(new ApiResponseDto<>(throwable.getMessage(), null));
     }
 
 }
