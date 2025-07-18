@@ -3,7 +3,6 @@ package com.github.diogocerqueiralima.conversationservice.application.services;
 import com.github.diogocerqueiralima.conversationservice.application.dto.CreatePrivateChatDto;
 import com.github.diogocerqueiralima.conversationservice.domain.exceptions.ChatNotFoundException;
 import com.github.diogocerqueiralima.conversationservice.domain.model.PrivateChat;
-import com.github.diogocerqueiralima.conversationservice.domain.ports.inbound.ParticipantService;
 import com.github.diogocerqueiralima.conversationservice.domain.ports.inbound.PrivateChatService;
 import com.github.diogocerqueiralima.conversationservice.domain.ports.outbound.PrivateChatRepository;
 import org.springframework.stereotype.Service;
@@ -14,9 +13,9 @@ import reactor.core.publisher.Mono;
 public class PrivateChatServiceImpl implements PrivateChatService {
 
     private final PrivateChatRepository privateChatRepository;
-    private final ParticipantService participantService;
+    private final ParticipantServiceImpl participantService;
 
-    public PrivateChatServiceImpl(PrivateChatRepository privateChatRepository, ParticipantService participantService) {
+    public PrivateChatServiceImpl(PrivateChatRepository privateChatRepository, ParticipantServiceImpl participantService) {
         this.privateChatRepository = privateChatRepository;
         this.participantService = participantService;
     }

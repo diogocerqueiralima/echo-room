@@ -94,9 +94,4 @@ public class PrivateChatRepositoryImpl implements PrivateChatRepository {
                 );
     }
 
-    @Override
-    public Mono<PrivateChat> findByParticipants(List<Participant> participants) {
-        return null;
-    }
-
 }
