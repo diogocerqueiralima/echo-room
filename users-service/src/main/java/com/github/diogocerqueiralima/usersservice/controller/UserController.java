@@ -76,19 +76,27 @@ public class UserController extends UserServiceGrpc.UserServiceImplBase {
     }
 
     @Override
-    public void existsById(IdLookupRequest request, StreamObserver<ExistsResponse> responseObserver) {
+    public void getById(IdLookupRequest request, StreamObserver<UserResponse> responseObserver) {
 
-        responseObserver.onNext(
-                ExistsResponse.newBuilder()
-                        .setValue(userService.existsById(request.getId()))
-                        .build()
-        );
+        try {
 
-        responseObserver.onCompleted();
+            User user = userService.getById(request.getId());
+            UserResponse response = mapUserToResponse(user);
+
+            responseObserver.onNext(response);
+            responseObserver.onCompleted();
+
+        } catch (UserNotFoundException e) {
+            responseObserver.onError(new StatusException(Status.NOT_FOUND.withDescription(e.getMessage())));
+        } catch (Exception e) {
+            responseObserver.onError(new StatusException(Status.INTERNAL.withDescription(e.getMessage())));
+        }
+
     }
 
     private UserResponse mapUserToResponse(User user) {
         return UserResponse.newBuilder()
+                .setId(user.getId())
                 .setFirstName(user.getFirstName())
                 .setLastName(user.getLastName())
                 .setUsername(user.getUsername())

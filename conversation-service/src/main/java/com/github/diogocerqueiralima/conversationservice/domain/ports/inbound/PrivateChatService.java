@@ -8,4 +8,6 @@ public interface PrivateChatService {
 
     Mono<PrivateChat> create(CreatePrivateChatDto dto);
 
+    Mono<PrivateChat> getById(Long id);
+
 }

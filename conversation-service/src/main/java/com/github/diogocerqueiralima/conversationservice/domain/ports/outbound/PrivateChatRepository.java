@@ -7,4 +7,6 @@ public interface PrivateChatRepository {
 
     Mono<PrivateChat> save(PrivateChat privateChat);
 
+    Mono<PrivateChat> findById(Long id);
+
 }

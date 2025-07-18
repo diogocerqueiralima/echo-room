@@ -51,6 +51,10 @@ public class User {
         this(firstName, lastName, username, email, password, roles, Instant.now());
     }
 
+    public Long getId() {
+        return id;
+    }
+
     public String getFirstName() {
         return firstName;
     }

@@ -15,6 +15,7 @@ public class PrivateChatRoute {
     public RouterFunction<ServerResponse> routes(PrivateChatHandler privateChatHandler) {
         return route()
                 .POST("/api/v1/chat/private", privateChatHandler::create)
+                .GET("/api/v1/chat/private/{id}", privateChatHandler::getById)
                 .build();
     }
 

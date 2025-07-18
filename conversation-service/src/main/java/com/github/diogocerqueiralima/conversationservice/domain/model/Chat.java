@@ -5,16 +5,20 @@ import java.util.List;
 
 public class Chat {
 
-    private Long id;
+    private final Long id;
 
-    private Instant createdAt;
+    private final Instant createdAt;
 
     private List<Participant> participants;
 
-    public Chat() {}
+    public Chat(Long id, Instant createdAt, List<Participant> participants) {
+        this.id = id;
+        this.createdAt = createdAt;
+        this.participants = participants;
+    }
 
     public Chat(List<Participant> participants) {
-        this.participants = participants;
+        this(null, null, participants);
     }
 
     public Long getId() {
@@ -27,6 +31,10 @@ public class Chat {
 
     public List<Participant> getParticipants() {
         return participants;
+    }
+
+    public void setParticipants(List<Participant> participants) {
+        this.participants = participants;
     }
 
 }

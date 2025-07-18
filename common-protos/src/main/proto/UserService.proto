@@ -10,7 +10,7 @@ service UserService {
 
   rpc create(UserCreate) returns (UserResponse);
   rpc getByUsername(UsernameLookupRequest) returns (UserResponse);
-  rpc existsById(IdLookupRequest) returns (ExistsResponse);
+  rpc getById(IdLookupRequest) returns (UserResponse);
 
 }
 
@@ -23,12 +23,6 @@ message UsernameLookupRequest {
 message IdLookupRequest {
 
   int64 id = 1;
-
-}
-
-message ExistsResponse {
-
-  bool value = 1;
 
 }
 
@@ -45,12 +39,13 @@ message UserCreate {
 
 message UserResponse {
 
-  string firstName = 1;
-  string lastName = 2;
-  string username = 3;
-  string email = 4;
-  string password = 5;
-  repeated string roles = 6;
-  google.protobuf.Timestamp createdAt = 7;
+  int64 id = 1;
+  string firstName = 2;
+  string lastName = 3;
+  string username = 4;
+  string email = 5;
+  string password = 6;
+  repeated string roles = 7;
+  google.protobuf.Timestamp createdAt = 8;
 
 }

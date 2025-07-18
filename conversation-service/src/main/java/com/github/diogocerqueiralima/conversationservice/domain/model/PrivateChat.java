@@ -1,19 +1,24 @@
 package com.github.diogocerqueiralima.conversationservice.domain.model;
 
+import com.github.diogocerqueiralima.conversationservice.domain.exceptions.InvalidParticipantsException;
+
+import java.time.Instant;
 import java.util.List;
 
 public class PrivateChat extends Chat {
 
-    public PrivateChat() {}
+    public PrivateChat(Long id, Instant createdAt, List<Participant> participants) {
+        super(id, createdAt, participants);
+    }
 
-    public PrivateChat(List<Long> participants) {
+    public PrivateChat(List<Participant> participants) {
         super(validateParticipants(participants));
     }
 
-    private static List<Long> validateParticipants(List<Long> participants) {
+    private static List<Participant> validateParticipants(List<Participant> participants) {
 
-        if (participants.size() != 2)
-            throw new IllegalArgumentException("Participants must have exactly 2 participants");
+        if (participants == null || participants.size() != 2 || participants.get(0).equals(participants.get(1)))
+            throw new InvalidParticipantsException("Private chat should have exactly two participants");
 
         return participants;
     }

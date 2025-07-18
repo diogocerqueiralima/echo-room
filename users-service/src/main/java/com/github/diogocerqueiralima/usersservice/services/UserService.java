@@ -21,8 +21,8 @@ public class UserService {
         return userRepository.findByUsername(username).orElseThrow(() -> new UserNotFoundException(username));
     }
 
-    public boolean existsById(Long id) {
-        return userRepository.existsById(id);
+    public User getById(Long id) {
+        return userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
     }
 
     public User create(
