@@ -1,4 +1,4 @@
-package com.github.diogocerqueiralima.conversationservice.infrastructure.repositories;
+package com.github.diogocerqueiralima.conversationservice.infrastructure.adapters;
 
 import com.github.diogocerqueiralima.conversationservice.domain.model.Participant;
 import com.github.diogocerqueiralima.conversationservice.domain.model.PrivateChat;

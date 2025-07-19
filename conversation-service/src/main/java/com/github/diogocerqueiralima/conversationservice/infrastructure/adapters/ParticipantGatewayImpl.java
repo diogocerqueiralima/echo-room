@@ -1,11 +1,11 @@
-package com.github.diogocerqueiralima.conversationservice.infrastructure.services;
+package com.github.diogocerqueiralima.conversationservice.infrastructure.adapters;
 
 import UserService.proto.IdLookupRequest;
 import UserService.proto.UserResponse;
 import UserService.proto.UserServiceGrpc;
 import com.github.diogocerqueiralima.conversationservice.domain.exceptions.ParticipantNotFoundException;
 import com.github.diogocerqueiralima.conversationservice.domain.model.Participant;
-import com.github.diogocerqueiralima.conversationservice.domain.ports.outbound.ParticipantService;
+import com.github.diogocerqueiralima.conversationservice.domain.ports.outbound.ParticipantGateway;
 import io.grpc.Status;
 import io.grpc.StatusException;
 import io.grpc.stub.StreamObserver;
@@ -13,11 +13,11 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
 @Service
-public class ParticipantServiceImpl implements ParticipantService {
+public class ParticipantGatewayImpl implements ParticipantGateway {
 
     private final UserServiceGrpc.UserServiceStub userServiceStub;
 
-    public ParticipantServiceImpl(UserServiceGrpc.UserServiceStub userServiceStub) {
+    public ParticipantGatewayImpl(UserServiceGrpc.UserServiceStub userServiceStub) {
         this.userServiceStub = userServiceStub;
     }
 
