@@ -2,12 +2,12 @@ package com.github.diogocerqueiralima.conversationservice.application.handlers;
 
 import com.github.diogocerqueiralima.conversationservice.application.dto.ApiResponseDto;
 import com.github.diogocerqueiralima.conversationservice.application.dto.CreatePrivateChatDto;
-import com.github.diogocerqueiralima.conversationservice.application.dto.ParticipantDto;
 import com.github.diogocerqueiralima.conversationservice.application.dto.PrivateChatDto;
 import com.github.diogocerqueiralima.conversationservice.domain.exceptions.ChatNotFoundException;
 import com.github.diogocerqueiralima.conversationservice.domain.exceptions.InvalidParticipantsException;
 import com.github.diogocerqueiralima.conversationservice.domain.exceptions.ParticipantNotFoundException;
 import com.github.diogocerqueiralima.conversationservice.domain.exceptions.PrivateChatAlreadyExists;
+import com.github.diogocerqueiralima.conversationservice.domain.model.Participant;
 import com.github.diogocerqueiralima.conversationservice.domain.ports.inbound.PrivateChatService;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
@@ -34,9 +34,7 @@ public class PrivateChatHandler {
                                         privateChat.getId(),
                                         privateChat.getCreatedAt(),
                                         privateChat.getParticipants().stream()
-                                                .map(participant -> new ParticipantDto(
-                                                        participant.getId(), participant.getName()
-                                                ))
+                                                .map(Participant::id)
                                                 .toList()
                                 )
                         ))
@@ -56,9 +54,7 @@ public class PrivateChatHandler {
                                         privateChat.getId(),
                                         privateChat.getCreatedAt(),
                                         privateChat.getParticipants().stream()
-                                                .map(participant -> new ParticipantDto(
-                                                        participant.getId(), participant.getName()
-                                                ))
+                                                .map(Participant::id)
                                                 .toList()
                                 )
                         ))

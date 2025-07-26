@@ -44,7 +44,7 @@ public class PrivateChatRepositoryImpl implements PrivateChatRepository {
 
                             PrivateChatEntity privateChatEntity = new PrivateChatEntity(savedChat.getId());
                             List<ChatParticipantEntity> participants = privateChat.getParticipants().stream()
-                                    .map(p -> new ChatParticipantEntity(savedChat.getId(), p.getId()))
+                                    .map(p -> new ChatParticipantEntity(savedChat.getId(), p.id()))
                                     .toList();
 
                             Mono<Void> savePrivateChat = privateChatRepository.insertById(privateChatEntity.getId());
@@ -98,7 +98,7 @@ public class PrivateChatRepositoryImpl implements PrivateChatRepository {
     public Mono<Boolean> existsByParticipants(List<Participant> participants) {
         return participantRepository.existsChatByParticipantIds(
                 participants.stream()
-                        .map(Participant::getId)
+                        .map(Participant::id)
                         .toList(),
                 participants.size()
         );

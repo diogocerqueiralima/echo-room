@@ -39,11 +39,6 @@ public class PrivateChatServiceImpl implements PrivateChatService {
     @Override
     public Mono<PrivateChat> getById(Long id) {
         return privateChatRepository.findById(id)
-                .switchIfEmpty(Mono.error(new ChatNotFoundException(id)))
-                .flatMap(privateChat -> Flux.fromIterable(privateChat.getParticipants())
-                        .flatMap(participant -> participantGateway.getById(participant.getId()))
-                        .collectList()
-                        .map(privateChat::withParticipants)
-                );
+                .switchIfEmpty(Mono.error(new ChatNotFoundException(id)));
     }
 }

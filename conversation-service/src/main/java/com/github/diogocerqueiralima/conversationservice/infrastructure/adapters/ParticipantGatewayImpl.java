@@ -8,6 +8,7 @@ import com.github.diogocerqueiralima.conversationservice.domain.model.Participan
 import com.github.diogocerqueiralima.conversationservice.domain.ports.outbound.ParticipantGateway;
 import io.grpc.Status;
 import io.grpc.StatusException;
+import io.grpc.StatusRuntimeException;
 import io.grpc.stub.StreamObserver;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
@@ -33,17 +34,14 @@ public class ParticipantGatewayImpl implements ParticipantGateway {
                     new StreamObserver<>() {
                         @Override
                         public void onNext(UserResponse userResponse) {
-
-                            String name = userResponse.getFirstName() + " " + userResponse.getLastName();
-
-                            Participant participant = new Participant(userResponse.getId(), name);
+                            Participant participant = new Participant(userResponse.getId());
                             sink.success(participant);
                         }
 
                         @Override
                         public void onError(Throwable throwable) {
 
-                            if (throwable instanceof StatusException e && e.getStatus().getCode() == Status.Code.NOT_FOUND)
+                            if (throwable instanceof StatusRuntimeException e && e.getStatus().getCode() == Status.Code.NOT_FOUND)
                                 sink.error(new ParticipantNotFoundException());
 
                             sink.error(throwable);
