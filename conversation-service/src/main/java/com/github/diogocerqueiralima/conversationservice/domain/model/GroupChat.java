@@ -1,8 +1,10 @@
 package com.github.diogocerqueiralima.conversationservice.domain.model;
 
+import com.github.diogocerqueiralima.conversationservice.domain.exceptions.GroupChatOwnerException;
 import com.github.diogocerqueiralima.conversationservice.domain.exceptions.InvalidParticipantsException;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 
 public class GroupChat extends Chat {
@@ -39,6 +41,33 @@ public class GroupChat extends Chat {
         this.createdBy = createdBy;
         this.owner = owner;
         this.image = image;
+    }
+
+    public GroupChat transferOwnership(Participant from, Participant to) {
+
+        if (from.equals(to))
+            throw new GroupChatOwnerException("It is not possible transfer the ownership to the same participant");
+
+        if (!from.equals(this.owner))
+            throw new GroupChatOwnerException(from);
+
+        return new GroupChat(
+                this.getId(), this.getCreatedAt(), this.getParticipants(), this.name,
+                this.description, this.createdBy, to, this.image
+        );
+
+    }
+
+    public GroupChat addParticipant(Participant participant) {
+
+        List<Participant> participants = new ArrayList<>(this.getParticipants());
+        participants.add(participant);
+
+        return new GroupChat(
+                this.getId(), this.getCreatedAt(), participants, this.name,
+                this.description, this.createdBy, this.owner, this.image
+        );
+
     }
 
     private static List<Participant> validateParticipants(List<Participant> participants) {
