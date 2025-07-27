@@ -10,4 +10,6 @@ public interface PrivateChatService {
 
     Mono<PrivateChat> getById(Long id);
 
+    Mono<Void> deleteById(Long id);
+
 }

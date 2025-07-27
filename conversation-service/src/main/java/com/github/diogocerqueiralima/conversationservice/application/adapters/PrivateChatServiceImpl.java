@@ -41,4 +41,10 @@ public class PrivateChatServiceImpl implements PrivateChatService {
         return privateChatRepository.findById(id)
                 .switchIfEmpty(Mono.error(new ChatNotFoundException(id)));
     }
+
+    @Override
+    public Mono<Void> deleteById(Long id) {
+        return privateChatRepository.deleteById(id);
+    }
+
 }

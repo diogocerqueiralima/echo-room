@@ -42,20 +42,46 @@ public class PrivateChatHandler {
 
     public Mono<ServerResponse> getById(ServerRequest serverRequest) {
 
-        Long id = Long.valueOf(serverRequest.pathVariable("id"));
+        try {
 
-        return privateChatService.getById(id)
-                .flatMap(privateChat -> ServerResponse.ok()
-                        .bodyValue(new ApiResponseDto<>(
-                                "Private Chat created successfully",
-                                new PrivateChatDto(
-                                        privateChat.getId(),
-                                        privateChat.getCreatedAt(),
-                                        privateChat.getParticipants().stream().map(Participant::id).toList()
-                                )
-                        ))
-                )
-                .onErrorResume(this::onErrorResume);
+            Long id = Long.valueOf(serverRequest.pathVariable("id"));
+
+            return privateChatService.getById(id)
+                    .flatMap(privateChat -> ServerResponse.ok()
+                            .bodyValue(new ApiResponseDto<>(
+                                    "Private Chat retrieved successfully",
+                                    new PrivateChatDto(
+                                            privateChat.getId(),
+                                            privateChat.getCreatedAt(),
+                                            privateChat.getParticipants().stream().map(Participant::id).toList()
+                                    )
+                            ))
+                    )
+                    .onErrorResume(this::onErrorResume);
+
+        } catch (Exception e) {
+            return ServerResponse.status(HttpStatus.NOT_FOUND)
+                    .bodyValue(new ApiResponseDto<Void>("Private Chat not found", null));
+        }
+
+    }
+
+    public Mono<ServerResponse> deleteById(ServerRequest serverRequest) {
+
+        try {
+
+            Long id = Long.valueOf(serverRequest.pathVariable("id"));
+
+            return privateChatService.deleteById(id)
+                    .then(Mono.defer(() -> ServerResponse.ok()
+                            .bodyValue(new ApiResponseDto<Void>("Private Chat deleted successfully", null)))
+                    ).onErrorResume(this::onErrorResume);
+
+        } catch (Exception e) {
+            return ServerResponse.status(HttpStatus.NOT_FOUND)
+                    .bodyValue(new ApiResponseDto<Void>("Private Chat not found", null));
+        }
+
     }
 
     private Mono<ServerResponse> onErrorResume(Throwable throwable) {

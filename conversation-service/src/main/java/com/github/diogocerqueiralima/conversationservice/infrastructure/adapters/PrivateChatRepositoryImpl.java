@@ -10,6 +10,7 @@ import com.github.diogocerqueiralima.conversationservice.infrastructure.springda
 import com.github.diogocerqueiralima.conversationservice.infrastructure.springdata.ChatParticipantEntityRepository;
 import com.github.diogocerqueiralima.conversationservice.infrastructure.springdata.PrivateChatEntityRepository;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.reactive.TransactionalOperator;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -101,6 +102,14 @@ public class PrivateChatRepositoryImpl implements PrivateChatRepository {
                         .map(Participant::id)
                         .toList(),
                 participants.size()
+        );
+    }
+
+    @Override
+    public Mono<Void> deleteById(Long id) {
+        return transactionalOperator.transactional(
+                chatRepository.deleteById(id)
+                        .then(privateChatRepository.deleteById(id))
         );
     }
 

@@ -16,6 +16,7 @@ public class PrivateChatRoute {
         return route()
                 .POST("/api/v1/chat/private", privateChatHandler::create)
                 .GET("/api/v1/chat/private/{id}", privateChatHandler::getById)
+                .DELETE("/api/v1/chat/private/{id}", privateChatHandler::deleteById)
                 .build();
     }
 

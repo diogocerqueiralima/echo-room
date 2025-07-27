@@ -14,4 +14,6 @@ public interface PrivateChatRepository {
 
     Mono<Boolean> existsByParticipants(List<Participant> participants);
 
+    Mono<Void> deleteById(Long id);
+
 }
