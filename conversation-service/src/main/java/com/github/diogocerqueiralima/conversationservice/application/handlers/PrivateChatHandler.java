@@ -33,9 +33,7 @@ public class PrivateChatHandler {
                                 new PrivateChatDto(
                                         privateChat.getId(),
                                         privateChat.getCreatedAt(),
-                                        privateChat.getParticipants().stream()
-                                                .map(Participant::id)
-                                                .toList()
+                                        privateChat.getParticipants().stream().map(Participant::id).toList()
                                 )
                         ))
                 )
@@ -53,9 +51,7 @@ public class PrivateChatHandler {
                                 new PrivateChatDto(
                                         privateChat.getId(),
                                         privateChat.getCreatedAt(),
-                                        privateChat.getParticipants().stream()
-                                                .map(Participant::id)
-                                                .toList()
+                                        privateChat.getParticipants().stream().map(Participant::id).toList()
                                 )
                         ))
                 )
